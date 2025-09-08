@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyHealth : Health
@@ -6,6 +7,15 @@ public class EnemyHealth : Health
     [SerializeField] private MonoBehaviour[] componentsToDisableOnDeath;
     [SerializeField] private EnemyAnimationController  _enemyAnimationController;
     [SerializeField] private Animator animator;
+    
+    private BuffSpawner buffSpawner;
+    
+    public event Action OnEntityDied;
+
+    private void Awake()
+    {
+        buffSpawner = FindObjectOfType<BuffSpawner>();
+    }
 
     public override void TakeDamage(float damage)
     {
@@ -33,10 +43,20 @@ public class EnemyHealth : Health
         
         DisableComponents();
         
+        if (buffSpawner != null)
+        {
+            buffSpawner.TrySpawnBuff(transform.position);
+        }
+        
         float deathAnimationLength = GetDeathAnimationLength();
         Destroy(_enemyAnimationController.gameObject, deathAnimationLength);
     }
-    
+
+    public void Reset()
+    {
+        currentHealth = maxHealth;
+    }
+
     private void DisableComponents()
     {
         if (componentsToDisableOnDeath == null)

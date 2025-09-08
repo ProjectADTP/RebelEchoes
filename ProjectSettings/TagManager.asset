@@ -15,7 +15,7 @@ TagManager:
   - 
   - Player
   - Enemy
-  - 
+  - obstacle
   - 
   - 
   - 
@@ -41,4 +41,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: 2
+    uniqueID: 332612053
     locked: 0

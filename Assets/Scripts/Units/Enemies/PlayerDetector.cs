@@ -7,6 +7,7 @@ public class PlayerDetector : MonoBehaviour, ITargetProvider
     [SerializeField] private float detectionRadius = 7f;
 
     [SerializeField] private LayerMask playerLayerMask = 7;
+    [SerializeField] private LayerMask obstacleLayerMask = 9;
     [SerializeField] private float detectionCheckRate = 1f;
     
     private Transform player;
@@ -28,9 +29,12 @@ public class PlayerDetector : MonoBehaviour, ITargetProvider
         CheckForPlayer();
         nextDetectionTime = Time.time + 1f / detectionCheckRate;
     }
-    
+
     private void CheckForPlayer()
     {
+        if (player != null)
+            return;
+        
         int colliderCount = Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, colliders, playerLayerMask);
     
         bool playerCurrentlyDetected = false;
@@ -39,13 +43,16 @@ public class PlayerDetector : MonoBehaviour, ITargetProvider
         for (int i = 0; i < colliderCount; i++)
         {
             Collider playerCollider = colliders[i];
-
-            if (!playerCollider || !playerCollider.CompareTag("Player")) 
-                continue;
             
             if (!playerCollider.TryGetComponent(out PlayerHealth playerHealth) || !playerHealth.IsAlive())
                 continue;
-                
+            
+            Vector3 direction = playerCollider.transform.position - transform.position;
+            float distance = direction.magnitude;
+        
+            if (Physics.Raycast(transform.position, direction.normalized, distance, obstacleLayerMask))
+                continue;
+            
             playerCurrentlyDetected = true;
             detectedPlayer = playerCollider.transform;
                     

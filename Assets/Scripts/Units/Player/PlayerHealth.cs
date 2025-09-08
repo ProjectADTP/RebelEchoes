@@ -1,5 +1,5 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -8,36 +8,35 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float currentHealth;
     
     [SerializeField] private MonoBehaviour[] componentsToDisableOnDeath;
+
+    [SerializeField] private PlayerBuffs playerBuffs;
     
-    public UnityEvent<float> OnHealthChanged;
-    public UnityEvent OnPlayerDied;
-    public UnityEvent OnPlayerHit;
+    public event Action<float, float> OnHealthChanged; 
+    public event Action OnPlayerDied;
+    public event Action OnPlayerHit;
     
-    private PlayerAnimationController animationController;
+    public float GetCurrentHealth() => currentHealth;
+    public float GetMaxHealth() => maxHealth;
     
     private bool isDead;
 
-    private void Start()
+    private void Awake()
     {
         isDead = false;
         currentHealth = maxHealth;
-        animationController = GetComponent<PlayerAnimationController>();
     }
-    
+
     public void TakeDamage(float damage)
     {
-        if (isDead || damage <= 0) return;
+        if (isDead || damage <= 0 || playerBuffs.IsGhostMode())
+            return;
         
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         
-        OnHealthChanged?.Invoke(currentHealth);
-        OnPlayerHit?.Invoke();
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
         
-        if (animationController)
-        {
-            animationController.TriggerHit();
-        }
+        OnPlayerHit?.Invoke();
         
         if (currentHealth <= 0)
         {
@@ -45,16 +44,23 @@ public class PlayerHealth : MonoBehaviour
         }
     }
     
+    public void Heal(int amount)
+    {
+        if (!IsAlive()) 
+            return;
+
+        currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+    }
+    
     private void Die()
     {
-        if (isDead) return;
+        if (isDead)
+            return;
         
         isDead = true;
-        
-        if (animationController)
-        {
-            animationController.TriggerDeath();
-        }
         
         OnPlayerDied?.Invoke();
         

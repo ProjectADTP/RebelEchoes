@@ -78,16 +78,11 @@ public class PlayerMover : MonoBehaviour
     {
         if (!characterController) 
             return;
-        
+
         characterController.Move(moveDirection * moveSpeed * Time.deltaTime);
         
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
-            
-        if (characterController.isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
     }
     
     public void SetMovementInput(Vector2 input)

@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.Events;
+using System;
 
 public abstract class Health : MonoBehaviour
 {
@@ -7,12 +7,13 @@ public abstract class Health : MonoBehaviour
     [SerializeField] protected float maxHealth = 100f;
     [SerializeField] protected float currentHealth;
     
-    [Header("Events")]
-    public UnityEvent<float> OnHealthChanged;
-    public UnityEvent OnEntityDied;
-    
-    protected bool isDead = false;
+    public event Action<float,float> OnHealthChanged;
 
+    protected bool isDead = false;
+    
+    public float GetMaxHealth() => 
+        maxHealth;
+    
     protected virtual void Start()
     {
         currentHealth = maxHealth;
@@ -25,7 +26,7 @@ public abstract class Health : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         
-        OnHealthChanged?.Invoke(currentHealth);
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
         
         if (currentHealth <= 0)
         {

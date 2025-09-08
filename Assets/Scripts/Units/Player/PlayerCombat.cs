@@ -14,6 +14,9 @@ public class PlayerCombat : MonoBehaviour, ITargetProvider
     
     [Header("Targeting")]
     [SerializeField] private LayerMask enemyLayerMask = 8;
+    [SerializeField] private LayerMask obstacleLayerMask = 9;
+    
+    [SerializeField] private PlayerBuffs playerBuffs;
     
     private float nextAttackTime;
     private Transform currentTarget;
@@ -23,7 +26,6 @@ public class PlayerCombat : MonoBehaviour, ITargetProvider
     private void Awake()
     {
         colliders = new Collider[25];
-        
         animationController = GetComponent<PlayerAnimationController>();
     }
 
@@ -80,14 +82,49 @@ public class PlayerCombat : MonoBehaviour, ITargetProvider
 
         animationController.SetShoot(true);
         
-        Projectile projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        
-        Vector3 direction = (target.position - firePoint.position).normalized;
+        int shotCount = playerBuffs ? playerBuffs.GetShotCount() : 1;
+        float spreadAngle = playerBuffs ? playerBuffs.GetSpreadAngle() : 0f;
 
-        if (projectile.TryGetComponent(out Rigidbody projectileRigidbody))
+        if (shotCount == 1)
         {
-            projectileRigidbody.velocity = direction * projectileSpeed;
+            CreateProjectile(target, 0f);
         }
+        else
+        {
+            float step = (spreadAngle * 2) / (shotCount - 1);
+
+            for (int i = 0; i < shotCount; i++)
+            {
+                float angle = step * i;
+                CreateProjectile(target, angle);
+            }
+        }
+    }
+    
+    private void CreateProjectile(Transform target, float angleOffset)
+    {
+        Projectile projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.localRotation);
+        
+        projectile.transform.localRotation = Quaternion.LookRotation((target.position - transform.position).normalized);
+        
+        if (angleOffset == 1)
+        {
+            projectile.transform.localPosition += projectile.transform.right * 2;
+        }
+        else if  (angleOffset == 2)
+        {
+            projectile.transform.localPosition -= projectile.transform.right * 2;
+        }
+        
+        float damageMultiplier = playerBuffs ? playerBuffs.GetPowerMultiplier() : 1f;
+        float lifetimeMultiplier = (playerBuffs && playerBuffs.IsBuffActive(BuffType.Power)) ? 2f : 1f;
+
+        projectile.Initialize(
+            target, 
+            projectileSpeed, 
+            damageMultiplier, 
+            lifetimeMultiplier
+        );
     }
     
     private Transform FindClosestEnemy()
@@ -104,8 +141,13 @@ public class PlayerCombat : MonoBehaviour, ITargetProvider
             if (!enemy.TryGetComponent(out EnemyHealth health) || !health.enabled || !health.IsAlive())
                 continue;
         
+            Vector3 direction = enemy.transform.position - transform.position;
+            
             float distance = Vector3.Distance(transform.position, enemy.transform.position);
-
+            
+            if (Physics.Raycast(transform.position, direction.normalized, distance, obstacleLayerMask))
+                continue;
+            
             if (!(distance < closestDistance))
                 continue;
             

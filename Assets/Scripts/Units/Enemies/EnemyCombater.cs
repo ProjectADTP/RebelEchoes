@@ -6,6 +6,7 @@ public class EnemyCombater : MonoBehaviour
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private float attackRate = 1f;
     [SerializeField] private float attackDamage = 10f;
+    [SerializeField] private Enemy enemy;
     
     [Header("References")]
     private ITargetProvider targetProvider;
@@ -39,7 +40,7 @@ public class EnemyCombater : MonoBehaviour
         return distanceToTarget <= attackRange;
     }
     
-    public void Attack()
+    private void Attack()
     {
         Transform target = GetTarget();
 

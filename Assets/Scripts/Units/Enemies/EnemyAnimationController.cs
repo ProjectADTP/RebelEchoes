@@ -16,6 +16,8 @@ public class EnemyAnimationController : MonoBehaviour
     private bool isDead;
     private bool isMovementDisabled;
 
+    private CombatMage combatMage;
+    
     private void Start()
     {
         if (animator == null)
@@ -23,6 +25,9 @@ public class EnemyAnimationController : MonoBehaviour
             
         enemyMovement = GetComponent<EnemyMover>();
         enemyCombat = GetComponent<EnemyCombater>();
+
+        if (enemyCombat == null)
+            combatMage = GetComponent<CombatMage>();
         
         isHit = false;
         isDead = false;
@@ -31,7 +36,8 @@ public class EnemyAnimationController : MonoBehaviour
 
     private void Update()
     {
-        if (isDead) return;
+        if (isDead)
+            return;
 
         UpdateMovementAnimation();
         UpdateCombatAnimation();
@@ -58,10 +64,17 @@ public class EnemyAnimationController : MonoBehaviour
 
     private void UpdateCombatAnimation()
     {
-        if (!enemyCombat || !animator) 
-            return;
+        bool isAttacking;
         
-        bool isAttacking = enemyCombat.IsPlayerInRange();
+        if (enemyCombat != null)
+        {
+             isAttacking = enemyCombat.IsPlayerInRange();            
+        }
+        else
+        {
+            isAttacking = combatMage.IsPlayerInRange();
+        }
+        
         animator.SetBool(IsAttackingHash, isAttacking);
     }
 
@@ -115,5 +128,8 @@ public class EnemyAnimationController : MonoBehaviour
 
         if (enemyCombat is MonoBehaviour combatBehaviour)
             combatBehaviour.enabled = false;
+        
+        if (combatMage is MonoBehaviour mageCombatBehaviour)
+            mageCombatBehaviour.enabled = false;
     }
 }
