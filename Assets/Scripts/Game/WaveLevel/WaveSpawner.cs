@@ -93,6 +93,8 @@ public class WaveSpawner : MonoBehaviour
             monsterGO.transform.SetParent(monstersParent);
         }
 
+        monsterGO.GetComponent<PlayerDetector>().SetRadiusCheck(30f);
+        
         EnemyHealth monster = monsterGO.transform.GetChild(0).GetComponent<EnemyHealth>();
         
         if (monster != null)

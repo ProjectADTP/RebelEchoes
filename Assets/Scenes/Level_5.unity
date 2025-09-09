@@ -4805,10 +4805,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe56c56553445798a17545772d5a1d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevelType: 4
+  currentLevelType: 0
   baseWinPoints: 1000
   playerHealth: {fileID: 1786215677}
   playerBuffs: {fileID: 1786215678}
+  currentLevelName: Level 5
 --- !u!1001 &259964634
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6032,6 +6033,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 619988196838498397, guid: 27944c78e9b35624397b8839d430a363, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 807750274277379193, guid: 27944c78e9b35624397b8839d430a363, type: 3}
       propertyPath: m_Name
       value: UI

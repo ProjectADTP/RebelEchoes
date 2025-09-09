@@ -8413,6 +8413,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5168159829239232145, guid: 593e0e180426ce14fa1e7f97fe769bc0, type: 3}
   m_PrefabInstance: {fileID: 1044335977}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1058106047 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2642305299495459348, guid: 27944c78e9b35624397b8839d430a363, type: 3}
+  m_PrefabInstance: {fileID: 5090937793578152291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7a512b7a5b84ea9b2ef6bb9b4a633ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1058106049 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4743011104548130320, guid: 27944c78e9b35624397b8839d430a363, type: 3}
+  m_PrefabInstance: {fileID: 5090937793578152291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d75479b0db4b358a1c79564a16f8fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1064728466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15859,6 +15881,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 60286171923772599, guid: 27944c78e9b35624397b8839d430a363, type: 3}
+      propertyPath: levelsView
+      value: 
+      objectReference: {fileID: 1058106049}
+    - target: {fileID: 60286171923772599, guid: 27944c78e9b35624397b8839d430a363, type: 3}
+      propertyPath: charactersView
+      value: 
+      objectReference: {fileID: 1058106047}
+    - target: {fileID: 619988196838498397, guid: 27944c78e9b35624397b8839d430a363, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 807750274277379193, guid: 27944c78e9b35624397b8839d430a363, type: 3}
       propertyPath: m_Name
       value: UI
@@ -16200,6 +16234,10 @@ PrefabInstance:
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 858976256752710774}
+    - target: {fileID: 8882043934235629771, guid: 7e53513ab1f10944d9dfcb2d2b8f7bfa, type: 3}
+      propertyPath: currentLevelName
+      value: Level 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8882043934235629771, guid: 7e53513ab1f10944d9dfcb2d2b8f7bfa, type: 3}
       propertyPath: lastCompletedStage
       value: 0

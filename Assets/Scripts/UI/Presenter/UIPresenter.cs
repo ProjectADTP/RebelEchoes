@@ -8,7 +8,7 @@ public class UIPresenter : MonoBehaviour
     [SerializeField] private MainUIView mainView;
     [SerializeField] private PauseUIView pauseView;
     [SerializeField] private OptionsUIView optionsView;
-    [SerializeField] private CharactersUIView charactersView;
+    [SerializeField] private LevelsView levelsView;
     [SerializeField] private InfoUIView infoView;
     [SerializeField] private WinMenuUIView winView;
     [SerializeField] private LoseMenuUIView loseView;
@@ -57,7 +57,7 @@ public class UIPresenter : MonoBehaviour
             { "Main", mainView },
             { "Pause", pauseView },
             { "Options", optionsView },
-            { "Characters", charactersView },
+            { "Characters", levelsView },
             { "Info", infoView },
             { "Win", winView },
             { "Lose", loseView }
@@ -75,7 +75,7 @@ public class UIPresenter : MonoBehaviour
         pauseView.OnInfoRequested += () => ShowInfoFrom("Pause");
 
         optionsView.OnBackToPauseRequested += ShowPauseView;
-        charactersView.OnBackToPauseRequested += ShowPauseView;
+        levelsView.OnBackToPauseRequested += ShowPauseView;
         
         infoView.OnBackRequested += OnInfoBackRequested;
         
@@ -153,7 +153,7 @@ public class UIPresenter : MonoBehaviour
     {
         HideAllViews();
         previousScreen = "Pause";
-        charactersView.Show();
+        levelsView.Show();
     }
 
     private void ShowInfoView()

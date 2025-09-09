@@ -76,6 +76,11 @@ public class PlayerDetector : MonoBehaviour, ITargetProvider
         return player;
     }
     
+    public void SetRadiusCheck(float radius)
+    {
+        detectionRadius = radius;
+    }
+    
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;

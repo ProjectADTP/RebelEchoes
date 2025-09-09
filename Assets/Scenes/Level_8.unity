@@ -1185,10 +1185,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe56c56553445798a17545772d5a1d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevelType: 7
+  currentLevelType: 2
   baseWinPoints: 1000
   playerHealth: {fileID: 1786215677}
   playerBuffs: {fileID: 1786215678}
+  currentLevelName: Level 8
 --- !u!1001 &242044084
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2064,7 +2065,6 @@ MonoBehaviour:
   bossHealthUI: {fileID: 354182667}
   nextSceneName: Level_9
   bossHealth: {fileID: 384713901}
-  bossStartPoint: {fileID: 0}
 --- !u!1001 &365707385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8556,6 +8556,9 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 128
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 9
   detectionCheckRate: 1
 --- !u!143 &4538760188667556029
 CharacterController:

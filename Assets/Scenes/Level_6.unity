@@ -4734,10 +4734,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe56c56553445798a17545772d5a1d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevelType: 5
+  currentLevelType: 2
   baseWinPoints: 1000
   playerHealth: {fileID: 1786215677}
   playerBuffs: {fileID: 1786215678}
+  currentLevelName: Level 6
 --- !u!1001 &259964634
 PrefabInstance:
   m_ObjectHideFlags: 0

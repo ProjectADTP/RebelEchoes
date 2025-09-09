@@ -4115,6 +4115,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 619988196838498397, guid: 27944c78e9b35624397b8839d430a363, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 807750274277379193, guid: 27944c78e9b35624397b8839d430a363, type: 3}
       propertyPath: m_Name
       value: UI
@@ -11026,6 +11030,10 @@ PrefabInstance:
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 1786215677}
+    - target: {fileID: 8882043934235629771, guid: 7e53513ab1f10944d9dfcb2d2b8f7bfa, type: 3}
+      propertyPath: currentLevelName
+      value: Level 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8882043934235629771, guid: 7e53513ab1f10944d9dfcb2d2b8f7bfa, type: 3}
       propertyPath: currentLevelType
       value: 0
